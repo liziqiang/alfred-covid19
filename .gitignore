@@ -1,0 +1,12 @@
+/target/
+.idea/
+*.code-workspace
+.classpath
+.project
+.settings/
+node_modules
+.DS_Store
+*.log
+*.pyc
+.vscode
+*.yarnclean
