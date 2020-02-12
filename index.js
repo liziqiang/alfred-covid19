@@ -1,18 +1,28 @@
 const alfy = require('alfy');
 
+const PAGE_URL = 'https://static.iqiyi.com/gzbd/index.html';
+
 async function getData() {
     let list = [];
     let covidList = alfy.cache.get('covidList');
     if (covidList) {
         list = covidList;
     } else {
-        const response = await alfy.fetch(`https://interface.sina.cn/news/wap/fymap2020_data.d.json?_=${+new Date()}`);
-        const isValid = response && response.data;
-        if (isValid) {
-            let data = response.data;
-            list = data.list;
-            let totalData = { name: '全国', value: data.gntotal, susNum: data.sustotal, cureNum: data.curetotal, deathNum: data.deathtotal };
-            list = [totalData, ...list];
+        const response = await alfy.fetch('https://toutiao.iqiyi.com/api/route/haoduo/nCoV/detail');
+        const data = response && response.code === 'A00000' && response.data;
+        if (data) {
+            list = data.detail || [];
+            let totalData = {
+                name: '全国',
+                deadCount: data.totalDeadCount,
+                curedCount: data.totalCuredCount,
+                confirmedCount: data.totalConfirmedCount,
+                suspectedCount: data.totalSuspectedCount,
+            };
+            list = [totalData, ...list].map((v) => {
+                v.name = v.name || v.provinceName || v.cityName;
+                return v;
+            });
             alfy.cache.set('covidList', list, { maxAge: 60 * 1 * 1000 });
         }
     }
@@ -20,18 +30,18 @@ async function getData() {
     if (alfy.input) {
         let matched = list.filter((v) => v.name.includes(alfy.input));
         if (matched.length === 1) {
-            let city = matched[0] && matched[0].city || [];
-            if (city.length) {
-                list = city.map((v) => {
-                    v.value = v.conNum;
-                    return v;
-                });
+            let cities = matched[0] && matched[0].cities || [];
+            if (cities.length) {
+                list = cities;
             }
         } else {
             list = matched;
         }
     }
-    
+    list = list.map((v) => {
+        v.name = v.name || v.provinceName || v.cityName;
+        return v;
+    });
     return list;
 }
 
@@ -40,11 +50,17 @@ function renderItems(list) {
         return {
             title: v.name,
             arg: v.name,
-            subtitle: `确诊：${v.value} 疑似：${v.susNum} 治愈：${v.cureNum} 死亡：${v.deathNum}`,
+            subtitle: `确诊：${v.confirmedCount} 疑似：${v.suspectedCount} 治愈：${v.curedCount} 死亡：${v.deadCount}`,
             autocomplete: v.name,
             valid: false,
             icon: {
                 path: alfy.icon.info
+            },
+            mods: {
+                'cmd': {
+                    arg: PAGE_URL,
+                    subtitle: `打开数据页面: ${PAGE_URL}`
+                }
             }
         }
     });

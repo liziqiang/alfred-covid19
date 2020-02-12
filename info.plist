@@ -9,12 +9,23 @@
 	<key>connections</key>
 	<dict>
 		<key>53F7EC19-9EA5-4835-BEA4-77A97F17B8DD</key>
-		<array/>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D96C7555-ABB9-4171-AC84-0C8C27878CB1</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Ziqiang Li</string>
 	<key>description</key>
-	<string></string>
+	<string>显示武汉肺炎数据</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -70,6 +81,25 @@
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>D96C7555-ABB9-4171-AC84-0C8C27878CB1</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -82,8 +112,17 @@
 			<key>ypos</key>
 			<integer>85</integer>
 		</dict>
+		<key>D96C7555-ABB9-4171-AC84-0C8C27878CB1</key>
+		<dict>
+			<key>xpos</key>
+			<integer>425</integer>
+			<key>ypos</key>
+			<integer>85</integer>
+		</dict>
 	</dict>
+	<key>version</key>
+	<string>1.0.0</string>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/liziqiang/alfred-covid19#readme</string>
 </dict>
 </plist>
