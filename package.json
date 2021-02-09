@@ -1,7 +1,7 @@
 {
   "name": "alfred-covid19",
-  "version": "1.0.1",
-  "description": "显示武汉肺炎数据",
+  "version": "1.0.2",
+  "description": "显示武汉疫情数据",
   "main": "index.js",
   "repository": "https://github.com/liziqiang/alfred-covid19.git",
   "author": "Ziqiang Li <ziqiang.lee@gmail.com>",
